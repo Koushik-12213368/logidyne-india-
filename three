@@ -1,0 +1,43 @@
+def is_non_negative_integer(string):
+  return string.isdigit() and int(string) >= 0
+
+def is_integer(string):
+  try:
+    int(string)
+    return True
+  except ValueError:
+    return False
+
+def is_real_number(string):
+  try:
+    float(string)
+    return True
+  except ValueError:
+    return False
+
+import re
+
+def is_scientific_notation(string):
+  pattern = r"^[-+]?\d+\.?\d*(?:[eE][-+]?\d+)?$"
+  try:
+    return bool(re.match(pattern, string))
+  except Exception as e:
+    print(f"Unexpected error during regex match for scientific notation: {e}")
+    return False
+
+test_strings = [
+  "123",
+  "-54",
+  "3.14",
+  "2.123e4",
+  "hello",
+  "123a",
+  "++123",
+]
+
+for string in test_strings:
+  print(f"{string}:")
+  print(f"  Non-negative integer: {is_non_negative_integer(string)}")
+  print(f"  Integer: {is_integer(string)}")
+  print(f"  Real number: {is_real_number(string)}")
+  print(f"  Scientific notation: {is_scientific_notation(string)}\n")
