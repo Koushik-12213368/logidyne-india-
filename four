@@ -1,0 +1,97 @@
+1
+class Author:
+  def __init__(self, name, email):
+    self.name = name
+    self.email = email
+
+  def __str__(self):
+    return f"Name: {self.name}, Email: {self.email}"
+
+class ProgrammingLanguage(Author):
+  def __init__(self, name, release_year, author):
+    super().__init__(author.name, author.email)
+    self.name = name
+    self.release_year = release_year
+
+  def print_details(self):
+    print(f"Name: {self.name}")
+    print(f"Release Year: {self.release_year}")
+    print(f"Author: {self}")
+
+author1 = Author("Guido van Rossum", "guido@python.org")
+python = ProgrammingLanguage("Python", 1991, author1)
+
+python.print_details()
+2
+class Algorithms:
+
+  @staticmethod
+  def quick_sort(data):
+    if len(data) <= 1:
+      return data
+    pivot = data[0]
+    left, right = [], []
+    for item in data[1:]:
+      if item < pivot:
+        left.append(item)
+      else:
+        right.append(item)
+    return Algorithms.quick_sort(left) + [pivot] + Algorithms.quick_sort(right)
+
+  @staticmethod
+  def bubble_sort(data):
+    for i in range(len(data) - 1):
+      for j in range(len(data) - i - 1):
+        if data[j] > data[j + 1]:
+          data[j], data[j + 1] = data[j + 1], data[j]
+    return data
+
+  @staticmethod
+  def merge_sort(data):
+    if len(data) <= 1:
+      return data
+    mid = len(data) // 2
+    left = Algorithms.merge_sort(data[:mid])
+    right = Algorithms.merge_sort(data[mid:])
+    return Algorithms.merge(left, right)
+
+  @staticmethod
+  def merge(left, right):
+    merged = []
+    i, j = 0, 0
+    while i < len(left) and j < len(right):
+      if left[i] <= right[j]:
+        merged.append(left[i])
+        i += 1
+      else:
+        merged.append(right[j])
+        j += 1
+    merged += left[i:]
+    merged += right[j:]
+    return merged
+
+
+class Sorting(Algorithms):
+
+  def sort(self, data, algorithm):
+    if algorithm == "quick_sort":
+      return self.quick_sort(data.copy())
+    elif algorithm == "bubble_sort":
+      return self.bubble_sort(data.copy())
+    elif algorithm == "merge_sort":
+      return self.merge_sort(data.copy())
+    else:
+      raise ValueError("Invalid sorting algorithm")
+
+
+class Main:
+
+  def __init__(self):
+    sorter = Sorting()
+    data = [5, 2, 8, 1, 3]
+    sorted_data = sorter.sort(data, "quick_sort")  # Replace "quick_sort" with "bubble_sort" or "merge_sort"
+    print("Sorted data:", sorted_data)
+
+
+if __name__ == "__main__":
+  Main()
