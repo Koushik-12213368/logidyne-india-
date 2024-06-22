@@ -1,0 +1,87 @@
+1
+import sys
+
+def main():
+    num_args = int(input("Enter the number of arguments: "))
+    args = [input(f"Enter argument {i + 1}: ") for i in range(num_args)]
+    
+    print("Arguments entered:")
+    for arg in args:
+        print(arg)
+
+if __name__ == "__main__":
+    main()
+2
+def categorize_value(value):
+    if 0 < value < 10:
+        print("Small")
+    elif 10 < value < 100:
+        print("Medium")
+    elif value < 1000:
+        print("Large")
+    else:
+        print("Invalid")
+try:
+    input_value = int(input("Enter an integer value: "))
+    categorize_value(input_value)
+except ValueError:
+    print("Invalid input. Please enter a valid integer.")
+3
+def find_larger(a, b):
+    return max(a, b)
+num1 = float(input("Enter the first number: "))
+num2 = float(input("Enter the second number: "))
+larger_number = find_larger(num1, num2)
+print(f"The larger number is: {larger_number}")
+4
+def add(a, b):
+    return a + b
+def subtract(a, b):
+    return a - b
+def multiply(a, b):
+    return a * b
+def divide(a, b):
+    if b != 0:
+        return a / b
+    else:
+        return "Cannot divide by zero"
+def main():
+    num1, num2 = map(float, input("Enter two numbers (separated by space): ").split())
+    operation = input("Enter the operation (+, -, *, /): ")
+    if operation == "+":
+        result = add(num1, num2)
+    elif operation == "-":
+        result = subtract(num1, num2)
+    elif operation == "*":
+        result = multiply(num1, num2)
+    elif operation == "/":
+        result = divide(num1, num2)
+    else:
+        result = "Invalid operation"
+    print(f"Result: {result}")
+if __name__ == "__main__":
+    main()
+5
+def swap_values(a, b):
+    a, b = b, a
+    return a, b
+def main():
+    num1 = int(input("Enter the first integer: "))
+    num2 = int(input("Enter the second integer: "))
+    print(f"Input integers: {num1}, {num2}")
+    num1, num2 = swap_values(num1, num2)
+    print(f"Swapped integers: {num1}, {num2}")
+if __name__ == "__main__":
+    main()
+6
+def main():
+    N, C, M = map(int, input().split())
+    containers = list(map(int, input().split()))
+    total_containers = sum(containers)
+    if total_containers <= M * C:
+        print("Yes")
+    else:
+        print("No")
+if __name__ == "__main__":
+    main()
+
