@@ -1,0 +1,159 @@
+1
+def char_frequency(input_string, target_char):
+    return input_string.count(target_char)
+
+user_input = input("Enter a string: ")
+char_to_count = input("Enter the character to count: ")
+
+frequency = char_frequency(user_input, char_to_count)
+print(f"The frequency of '{char_to_count}' in the string is: {frequency}")
+2
+def first_last_two(string):
+  return string[:2] + string[-2:] if len(string) >= 2 else "Empty String"
+test_string = "Python"
+result = first_last_two(test_string)
+print(result)  # Output: "Pyon"
+3
+def add_ing_ly(string):
+  if len(string) < 3:
+    return string
+  ending = string[-3:]
+  return string + ("ly" if ending == "ing" else "ing")
+test_string = "sleep"
+result = add_ing_ly(test_string)
+print(result)  # Output: "sleeping"
+
+test_string = "lying"
+result = add_ing_ly(test_string)
+result = add_ing_ly(result)  # Add 'ly' again
+print(result)  # Output: "lyingly"
+
+test_string = "run"
+result = add_ing_ly(test_string)
+print(result)  # Output: "running"
+
+test_string = "short"
+result = add_ing_ly(test_string)
+print(result)  # Output: "short" (unchanged)
+4
+def remove_odd_indices(string):
+  return string[::2]  # Slicing with step 2
+
+test_string = "Hello, world!"
+result = remove_odd_indices(test_string)
+print(result)  # Output: "Hlo ol!"
+5
+def insert_middle(string, insert_str):
+  mid = len(string) // 2
+  return string[:mid] + insert_str + string[mid:]
+
+test_string = "Python"
+result = insert_middle(test_string, "is ")
+print(result)  # Output: "Pyisthon"
+
+test_string = "Hello"
+result = insert_middle(test_string, " World ")
+print(result)  # Output: "He Worldlo"
+6
+size = int(input("Enter list size: "))
+my_list = [input(f"Enter value {i+1}: ") for i in range(size)]
+print("The list is:", my_list)
+7
+def find_index(input_list, value):
+  try:
+    return input_list.index(value)
+  except ValueError:
+    return -1
+my_list = ["apple", "banana", "cherry"]
+search_value = "banana"
+index = find_index(my_list, search_value)
+print(f"The index of '{search_value}' is {index}")  # Output: The index of 'banana' is 1
+
+search_value = "mango"
+index = find_index(my_list, search_value)
+print(f"The index of '{search_value}' is {index}")  # Output: The index of 'mango' is -1
+8
+def calculate_average(input_list):
+  try:
+    return sum(float(num) for num in input_list) / len(input_list)
+  except ValueError:
+    raise ValueError("List contains non-numeric values")
+my_list = [1, 2, 3.5, "apple"]  # List with a non-numeric value
+
+try:
+  average = calculate_average(my_list)
+  print(f"The average is: {average}")
+except ValueError as e:
+  print(e)  # Print the error message if non-numeric value is found
+9
+def word_count(sentence):
+  word_counts = {word.lower(): sentence.lower().split().count(word) for word in sentence.lower().split()}
+  return word_counts
+
+sentence = input("Enter a sentence: ")
+word_counts = word_count(sentence)
+
+for word, count in word_counts.items():
+  print(f"{word} {count}")
+10
+def word_count(sentence):
+  word_counts = {word.lower(): sentence.lower().split().count(word) for word in sentence.lower().split()}
+  return word_counts
+
+sentence = input("Enter a sentence: ")
+word_counts = word_count(sentence)
+
+for word, count in word_counts.items():
+  print(f"{word} {count}")
+11
+def atm(amount):
+  denominations = [2000, 500, 100]
+  notes = {denomination: 0 for denomination in denominations}
+
+  for denomination in denominations:
+    while amount >= denomination:
+      amount -= denomination
+      notes[denomination] += 1
+
+  return notes
+
+amount = int(input("Enter amount to withdraw: "))
+notes = atm(amount)
+
+if notes:
+  print("Dispensed notes:")
+  for denomination, count in notes.items():
+    if count > 0:
+      print(f"{count} x Rs.{denomination}")
+else:
+  print("Insufficient funds or invalid amount")
+12
+def create_student_data():
+  students = []
+  num_students = int(input("Enter the number of students: "))
+  for i in range(num_students):
+    first_name = input(f"Enter first name for student {i+1}: ")
+    last_name = input(f"Enter last name for student {i+1}: ")
+    roll_no = int(input(f"Enter roll number for student {i+1}: "))
+    students.append({
+      "First Name": first_name,
+      "Last Name": last_name,
+      "Roll No": roll_no
+    })
+  return students
+
+def sort_student_list(student_list, sort_key):
+  return sorted(student_list, key=lambda student: student[sort_key])
+
+students = create_student_data()
+
+sort_parameter = input("Enter sort parameter (First Name, Last Name, or Roll No): ")
+valid_parameters = ["First Name", "Last Name", "Roll No"]
+if sort_parameter not in valid_parameters:
+  print("Invalid parameter. Please enter a valid option.")
+else:
+  sorted_students = sort_student_list(students.copy(), sort_parameter)
+  print("Students sorted by", sort_parameter)
+  for student in sorted_students:
+    print(student)
+
