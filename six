@@ -1,0 +1,25 @@
+import json
+import pickle
+class Employee:
+    def __init__(self, name, age, gender):
+        self.name = name
+        self.age = age
+        self.gender = gender
+def create_employee():
+    name = input("Enter employee name: ")
+    age = int(input("Enter employee age: "))
+    gender = input("Enter employee gender: ")
+    return Employee(name, age, gender)
+emp = create_employee()
+json_data = json.dumps(vars(emp))
+with open("employee.json", "w") as json_file:
+    json_file.write(json_data)
+with open("employee.json", "r") as json_file:
+    loaded_data = json.load(json_file)
+    emp.name = loaded_data["name"]
+    emp.age = loaded_data["age"]
+    emp.gender = loaded_data["gender"]
+with open("employee.pkl", "wb") as pickle_file:
+    pickle.dump(emp, pickle_file)
+print("Employee data saved and updated.")
+
