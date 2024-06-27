@@ -1,0 +1,26 @@
+import requests
+import csv
+import json
+import os
+csv_url = "https://ransomwaretracker.abuse.ch/feeds/csv/"
+response = requests.get(csv_url)
+csv_data = response.text.splitlines()
+folder_path = "path/to/your/folder"  # Set your desired folder path
+os.makedirs(folder_path, exist_ok=True)
+for line in csv_data:
+    if line.startswith("#"):
+        continue
+    columns = line.split(",")
+    feed_data = {
+        "domain": columns[0],
+        "ip": columns[1],
+        "type": columns[2],
+    }
+    feed_name = columns[0]  # Use domain as the file name
+    json_file_path = os.path.join(folder_path, f"{feed_name}.json")
+    with open(json_file_path, "w") as json_file:
+        json.dump(feed_data, json_file, indent=4)
+print("JSON files created successfully!")
+with open(os.path.join(folder_path, "example.com.json")) as example_file:
+    example_data = json.load(example_file)
+    print("Example data:", example_data)
