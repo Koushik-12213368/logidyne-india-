@@ -1,0 +1,78 @@
+1
+import xml.etree.ElementTree as ET
+
+class FileHierarchy:
+    def __init__(self, filename):
+        self.tree = ET.parse(filename)
+        self.root = self.tree.getroot()
+
+    def print_hierarchy(self, element, indent=0):
+        if element.tag == 'folder':
+            print('  ' * indent + f"Folder: {element.attrib['name']}")
+            for child in element:
+                self.print_hierarchy(child, indent + 1)
+        elif element.tag == 'file':
+            print('  ' * indent + f"File: {element.attrib['name']}")
+
+if __name__ == "__main__":
+    xml_filename = r"\\10.0.1.22\CrestData\UserData\Jay Joshi\Python handson\demo.xml"
+    hierarchy = FileHierarchy(xml_filename)
+    hierarchy.print_hierarchy(hierarchy.root)
+2
+import json
+def extract_key_value(json_filename, key):
+    try:
+        with open(json_filename, "r") as json_file:
+            data = json.load(json_file)
+            value = data.get(key)
+            return value
+    except FileNotFoundError:
+        return f"File '{json_filename}' not found."
+    except KeyError:
+        return f"Key '{key}' not found in the JSON data."
+json_filename = r"\\10.0.1.22\CrestData\UserData\Jay Joshi\Python handson\demo.json"
+requested_key = "md5Hex"
+result = extract_key_value(json_filename, requested_key)
+print(result)
+3
+import os
+def list_items(directory_path):
+    files_list = []
+    directories_list = []
+    for root, dirs, files in os.walk(directory_path):
+        for name in files:
+            files_list.append(os.path.join(root, name))
+        for dir_name in dirs:
+            directories_list.append(os.path.join(root, dir_name))
+    print("Files:")
+    for file_path in files_list:
+        print(file_path)
+    print("\nDirectories:")
+    for dir_path in directories_list:
+        print(dir_path)
+target_directory = r"/path/to/your/directory"
+list_items(target_directory)
+4
+import os
+import json
+def check_files_in_folders(json_filename, predefined_location):
+    try:
+        with open(json_filename, "r") as json_file:
+            data = json.load(json_file)
+            for folder_name, filenames in data.items():
+                folder_path = os.path.join(predefined_location, folder_name)
+                if os.path.exists(folder_path):
+                    missing_files = [filename for filename in filenames if not os.path.exists(os.path.join(folder_path, filename))]
+                    if missing_files:
+                        print(f"Missing files in folder '{folder_name}':")
+                        for missing_file in missing_files:
+                            print(f"  {missing_file}")
+                else:
+                    print(f"Folder '{folder_name}' does not exist in the predefined location.")
+    except FileNotFoundError:
+        print(f"File '{json_filename}' not found.")
+json_filename = r"\\10.0.1.22\CrestData\UserData\Jay Joshi\Python handson\folder_files.json"
+predefined_location = r"\\10.0.1.22\CrestData\UserData\Jay Joshi\Python handson\predefined_location"
+check_files_in_folders(json_filename, predefined_location)
+
+
