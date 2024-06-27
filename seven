@@ -1,0 +1,29 @@
+step1:
+pip install requests httplib2
+step2:
+import requests
+import httplib2
+step3:
+def is_phishing_url(url):
+    api_key = "YOUR_PHISHTANK_API_KEY"
+    phishtank_url = f"https://checkurl.phishtank.com/checkurl/?url={url}&format=json&app_key={api_key}"
+    try:
+        response = requests.get(phishtank_url)
+        data = response.json()
+        if data.get("valid"):
+            return "Phishing URL"
+        else:
+            return "Not a Phishing URL"
+    except requests.RequestException as e:
+        return f"Error: {e}"
+input_url = "http://www.travelswitchfly.com/"
+result = is_phishing_url(input_url)
+print(f"Result for {input_url}: {result}")
+step4:
+http = httplib2.Http(proxy_info=httplib2.ProxyInfo(
+    httplib2.socks.PROXY_TYPE_HTTP_NO_TUNNEL,
+    'proxy.example.com',
+    8080,
+    proxy_user='username',
+    proxy_pass='password'
+))
